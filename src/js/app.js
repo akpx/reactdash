@@ -5,6 +5,8 @@ import '../css/style.css';
 
 import keenImage from '../assets/keen.png';
 
+import 'typeface-roboto';
+
 export default class Hello extends Component {
   render() {
     return (
