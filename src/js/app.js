@@ -1,19 +1,31 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { render } from 'react-dom';
+import injectTapEventPlugin from 'react-tap-event-plugin';
+import Home from './home/Home'
 
-import '../css/style.css';
+// Needed for onTouchTap
+injectTapEventPlugin();
 
-import keenImage from '../assets/keen.png';
+const styles = theme => ({
+  root: {
+    marginTop: theme.spacing.unit * 3,
+    width: '100%',
+  },
+  flex: {
+    flex: 1,
+  },
+  menuButton: {
+    marginLeft: -12,
+    marginRight: 20,
+  },
+});
 
-export default class Hello extends Component {
-  render() {
-    return (
-      <div>
-        Hello from react
-        <img src={ keenImage } alt='Commander Keen' />
-      </div>
-    );
-  }
+function App(props) {
+  const { classes } = props;
+  return (
+    <Home />
+  );
 }
 
-render(<Hello some-data="foo bar" />, document.getElementById('app'));
+
+render(<App classes={styles} />, document.querySelector('#app'));
