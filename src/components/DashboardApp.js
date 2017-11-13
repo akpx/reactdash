@@ -2,6 +2,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import { render } from 'react-dom'
 import { withStyles } from 'material-ui/styles';
 import classNames from 'classnames';
 import Drawer from 'material-ui/Drawer';
@@ -14,9 +15,10 @@ import IconButton from 'material-ui/IconButton';
 import MenuIcon from 'material-ui-icons/Menu';
 import ChevronLeftIcon from 'material-ui-icons/ChevronLeft';
 import ChevronRightIcon from 'material-ui-icons/ChevronRight';
-import { iOSApps, AndroidApps } from '../sidebar/applist/Applist';
-import Content from '../content/Content'
-import Platformtabs from '../sidebar/platformtabs/Platformtabs';
+
+import Sidebar from './Sidebar';
+import Content from './Content';
+
 
 const drawerWidth = 240;
 
@@ -103,7 +105,7 @@ const styles = theme => ({
   }
 });
 
-class Home extends React.Component {
+class DashboardApp extends React.Component {
   state = {
     open: false,
   };
@@ -151,25 +153,13 @@ class Home extends React.Component {
                 </IconButton>
               </div>
               <Divider />
-                { this.state.open ?  <Platformtabs  /> : null }
-              <Divider />
-              <List className={classes.list}>{ iOSApps }</List>
-              <Divider />
-              <List className={classes.list}>{ AndroidApps }</List>
+              <Sidebar />
             </div>
           </Drawer>
           <main className={classes.content+ ' ' + (this.state.open ? classes.contentAdjusted:'')}>
 
               <Content />
-              <Content />
-              <Content />
-              <Content />
-              <Content />
-              <Content />
-              <Content />
-              <Content />
-              <Content />
-              <Content />
+
 
           </main>
         </div>
@@ -178,9 +168,9 @@ class Home extends React.Component {
   }
 }
 
-Home.propTypes = {
+DashboardApp.propTypes = {
   classes: PropTypes.object.isRequired,
   theme: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles, { withTheme: true })(Home);
+export default withStyles(styles, { withTheme: true })(DashboardApp);

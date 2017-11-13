@@ -1,7 +1,9 @@
 import React from 'react';
 import { render } from 'react-dom';
 import injectTapEventPlugin from 'react-tap-event-plugin';
-import Home from './home/Home'
+import DashboardApp from './components/DashboardApp'
+
+window.React = React
 
 // Needed for onTouchTap
 injectTapEventPlugin();
@@ -23,7 +25,7 @@ const styles = theme => ({
 function App(props) {
   const { classes } = props;
   return (
-    <Home />
+    <DashboardApp />
   );
 }
 

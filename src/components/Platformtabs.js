@@ -27,7 +27,6 @@ export default class Platformtabs extends React.Component {
 
   handleChange = (event, value) => {
     this.setState({ value });
-    debugger;
   };
 
   render() {

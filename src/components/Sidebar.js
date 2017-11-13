@@ -10,6 +10,9 @@ import PhonelinkSetup from 'material-ui-icons/PhonelinkSetup'
 import ExpandLess from 'material-ui-icons/ExpandLess';
 import ExpandMore from 'material-ui-icons/ExpandMore';
 import StarBorder from 'material-ui-icons/StarBorder';
+import Divider from 'material-ui/Divider';
+
+import {iOSApp, AndroidApps } from './Applist';
 
 const styles = theme => ({
   root: {
@@ -33,35 +36,22 @@ class Sidebar extends React.Component {
     const { classes } = this.props;
 
     return (
-      <List className={classes.root}>
+      <div className={classes.root}>
+      <List>
         <ListItem button>
           <ListItemIcon>
             <PhonelinkSetup />
           </ListItemIcon>
-          <ListItemText inset primary="CD App" />
+          <ListItemText primary="Inbox" />
         </ListItem>
         <ListItem button>
           <ListItemIcon>
             <PhonelinkSetup />
           </ListItemIcon>
-          <ListItemText inset primary="LO App" />
+          <ListItemText primary="Drafts" />
         </ListItem>
-        <ListItem button onClick={this.handleClick}>
-          <ListItemIcon>
-            <PhonelinkSetup />
-          </ListItemIcon>
-          <ListItemText inset primary="Partner App" />
-          {this.state.open ? <ExpandLess /> : <ExpandMore />}
-        </ListItem>
-        <Collapse in={this.state.open} transitionDuration="auto" unmountOnExit>
-          <ListItem button className={classes.nested}>
-            <ListItemIcon>
-              <PhonelinkSetup />
-            </ListItemIcon>
-            <ListItemText inset primary="Version 1" />
-          </ListItem>
-        </Collapse>
       </List>
+    </div>
     );
   }
 }

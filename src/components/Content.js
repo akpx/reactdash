@@ -6,7 +6,7 @@ import { withStyles } from 'material-ui/styles';
 import Paper from 'material-ui/Paper';
 import Grid from 'material-ui/Grid';
 
-import Sidebar from '../sidebar/Sidebar'
+import Sidebar from './Sidebar'
 
 const styles = theme => ({
   root: {
