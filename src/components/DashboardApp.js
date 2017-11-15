@@ -17,10 +17,13 @@ import ChevronLeftIcon from 'material-ui-icons/ChevronLeft';
 import ChevronRightIcon from 'material-ui-icons/ChevronRight';
 import Grid from 'material-ui/Grid';
 
+import axios, {httpAgent, httpsAgent, http, Agent} from 'axios';
+
 import Sidebar from './Sidebar';
 import { Content } from './Content';
 
-import { Api, api } from '../api/api';
+import * as api from '../api/api';
+import { constants } from 'zlib';
 
 
 const drawerWidth = 240;
@@ -120,30 +123,25 @@ class DashboardApp extends Component {
     super(props)
     this.state = {
       open: false,
-      appstoload : [
-        {
-          "title": "bSNAP-iOS",
-          "bundle_identifier": "com.stearns.bsnaptest",
-          "public_identifier": "541750c9df6d4de5be429a756ad7a7e6",
-          "platform": "iOS",
-          "id": 589780
-        },
-        {
-            "title": "Test-MLO -iOS",
-            "bundle_identifier": "com.stearns.orijinloanofficer",
-            "public_identifier": "db83619fdc2b42f3b661dab32bf5d085",
-            "platform": "Android",
-            "id": 596305
-        },
-        {
-            "title": "Test-Stearns-iOS",
-            "bundle_identifier": "com.stearns.orijinloanofficer.test",
-            "public_identifier": "3271e11fd6dd4b05b03829ec57523665",
-            "platform": "iOS",
-            "id": 614079
-        }
-       ]
+      allapps : [],
+      platform: 'Android',
+      currentAppId: 0,
+      VERSION_ID: '',
+      CRASH_REASON_ID: '',
+      appstoload : []
     }
+    this.changePlatform = this.changePlatform.bind(this)
+  }
+  changePlatform  = name = (event) => {
+    this.setState({ platform: event.target.value });
+  }
+  componentDidMount() {
+    // Load All Apps from Hockey
+    var self = this
+    var promiseObj = api.getAllApp()
+    promiseObj.then((data) => {
+      self.setState({appstoload: data.apps})
+     });
   }
  
   handleDrawerOpen = () => {
@@ -162,7 +160,7 @@ class DashboardApp extends Component {
   }
 
   render() {
-    const { classes, theme } = this.props;
+    const { classes, theme } = this.props
     return (
       <div className={classes.root}>
         <div className={classes.appFrame}>
@@ -214,7 +212,11 @@ class DashboardApp extends Component {
                 </IconButton>
               </div>
               <Divider />
-              <Sidebar apps={this.state.appstoload}/>
+              <Sidebar 
+                      apps={this.state.appstoload} 
+                      changePlatform={this.changePlatform}
+                      platform={this.state.platform}
+                      />
             </div>
           </Drawer>
           <main className={classes.content+ ' ' + (this.state.open ? classes.contentAdjusted:'')}>

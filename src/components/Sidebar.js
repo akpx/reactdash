@@ -47,7 +47,6 @@ const styles = theme => ({
 class Sidebar extends React.Component {
   constructor(props) {
     super(props)
-    this.state = { platform: 'ios'}
   }
 
   handleClick = () => {
@@ -59,20 +58,25 @@ class Sidebar extends React.Component {
     console.log({ [name]: event.target.value });
   };
 
+  componentDidMount() {
+    // Load All Apps from Hockey
+  }
+
   render() {
-    const { classes } = this.props;
+    const { classes } = this.props
+        
     return (
       <div className={classes.root}>
       <form className={classes.container} autoComplete="off">
         <FormControl className={classes.formControl}>
             <InputLabel htmlFor="platformselect">Platform</InputLabel>
             <Select
-            value={this.state.platform}
-            onChange={this.handleChange('platform')}
+            value={this.props.platform}
+            onChange={this.props.changePlatform}
             input={<Input id="platformselect" />}
             >
-            <MenuItem value={"ios"}>iOS</MenuItem>
-            <MenuItem value={'android'}><Android /></MenuItem>
+            <MenuItem value={"iOS"}>iOS</MenuItem>
+            <MenuItem value={'Android'}><Android /></MenuItem>
             </Select>
         </FormControl>
     </form>
