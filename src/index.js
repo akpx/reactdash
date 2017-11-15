@@ -2,6 +2,7 @@ import React from 'react';
 import { render } from 'react-dom';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import DashboardApp from './components/DashboardApp'
+import { BrowserRouter as Router , Route} from 'react-router-dom'
 
 window.React = React
 
@@ -25,7 +26,11 @@ const styles = theme => ({
 function App(props) {
   const { classes } = props;
   return (
-    <DashboardApp />
+    <Router>
+      <div>
+        <Route path="/" component ={DashboardApp} />
+      </div>  
+    </Router>
   );
 }
 

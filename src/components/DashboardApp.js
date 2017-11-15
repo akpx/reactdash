@@ -1,6 +1,6 @@
 /* eslint-disable flowtype/require-valid-file-annotation */
 
-import React from 'react';
+import { Component } from 'react';
 import PropTypes from 'prop-types';
 import { render } from 'react-dom'
 import { withStyles } from 'material-ui/styles';
@@ -15,9 +15,12 @@ import IconButton from 'material-ui/IconButton';
 import MenuIcon from 'material-ui-icons/Menu';
 import ChevronLeftIcon from 'material-ui-icons/ChevronLeft';
 import ChevronRightIcon from 'material-ui-icons/ChevronRight';
+import Grid from 'material-ui/Grid';
 
 import Sidebar from './Sidebar';
-import Content from './Content';
+import { Content } from './Content';
+
+import { Api, api } from '../api/api';
 
 
 const drawerWidth = 240;
@@ -29,6 +32,10 @@ const styles = theme => ({
     // marginTop: theme.spacing.unit * 3,
     zIndex: 1,
     overflow: 'auto',
+    
+  },
+  flexgrid: {
+    flexGrow: 1,
   },
   appFrame: {
     position: 'relative',
@@ -102,25 +109,60 @@ const styles = theme => ({
   },
   contentAdjusted: {
     marginLeft: 240
+  },
+  searchDefault: {
+    margin: 20
   }
 });
 
-class DashboardApp extends React.Component {
-  state = {
-    open: false,
-  };
-
+class DashboardApp extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      open: false,
+      appstoload : [
+        {
+          "title": "bSNAP-iOS",
+          "bundle_identifier": "com.stearns.bsnaptest",
+          "public_identifier": "541750c9df6d4de5be429a756ad7a7e6",
+          "platform": "iOS",
+          "id": 589780
+        },
+        {
+            "title": "Test-MLO -iOS",
+            "bundle_identifier": "com.stearns.orijinloanofficer",
+            "public_identifier": "db83619fdc2b42f3b661dab32bf5d085",
+            "platform": "Android",
+            "id": 596305
+        },
+        {
+            "title": "Test-Stearns-iOS",
+            "bundle_identifier": "com.stearns.orijinloanofficer.test",
+            "public_identifier": "3271e11fd6dd4b05b03829ec57523665",
+            "platform": "iOS",
+            "id": 614079
+        }
+       ]
+    }
+  }
+ 
   handleDrawerOpen = () => {
     this.setState({ open: true });
-  };
+  }
 
   handleDrawerClose = () => {
     this.setState({ open: false });
-  };
+  }
+
+  handleClick = () => {
+    console.log('Search Bar was clicked')
+  }
+  handleBlur = () => {
+    console.log('Blur Triggered')
+  }
 
   render() {
     const { classes, theme } = this.props;
-
     return (
       <div className={classes.root}>
         <div className={classes.appFrame}>
@@ -137,6 +179,25 @@ class DashboardApp extends React.Component {
               <Typography type="title" color="inherit" noWrap>
                 App Crash Logs
               </Typography>
+              {/* TODO: Future Implementation of Search Apps
+              <Grid  container className={classes.flexgrid}>
+                <Grid container
+                  alignItems="center"
+                  justify="flex-end"
+                  direction="row"
+                >
+                  <Grid item 
+                    onBlur={this.handleBlur}
+                    onClick={this.handleClick} 
+                    xs={12} sm={6}>
+                  <Search 
+                    appstoload={this.state.appstoload}
+                  />
+                  </Grid>
+                 
+                </Grid>
+              </Grid> */}
+              
             </Toolbar>
           </AppBar>
           <Drawer
@@ -153,14 +214,11 @@ class DashboardApp extends React.Component {
                 </IconButton>
               </div>
               <Divider />
-              <Sidebar />
+              <Sidebar apps={this.state.appstoload}/>
             </div>
           </Drawer>
           <main className={classes.content+ ' ' + (this.state.open ? classes.contentAdjusted:'')}>
-
-              <Content />
-
-
+            <Content />
           </main>
         </div>
       </div>
