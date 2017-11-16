@@ -12,5 +12,7 @@ Master Branch:
 M-UI Branch:
 [![Build Status](https://travis-ci.org/akpx/reactdash.svg?branch=m-ui)](https://travis-ci.org/akpx/reactdash)
 
+Planned: Unit Test Cases
+[![BCH compliance](https://bettercodehub.com/edge/badge/akpx/reactdash?branch=master)](https://bettercodehub.com/)
 
 ### More Info coming soon
