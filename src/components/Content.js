@@ -6,7 +6,7 @@ import { CrashReasons } from './Crashreason'
 
 export const Content = (props) =>  (
     <div>
-        <p>App Id is: {(props.match.params.appid) ? props.match.params.appid : 'not loaded'}</p>
+        <p>App Id: {(props.match.params.appid) ? props.match.params.appid : 'not loaded'}</p>
         <PieChart />
         <CrashGroups />
         <CrashReasons />
