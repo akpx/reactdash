@@ -16,6 +16,8 @@ import MenuIcon from 'material-ui-icons/Menu';
 import ChevronLeftIcon from 'material-ui-icons/ChevronLeft';
 import ChevronRightIcon from 'material-ui-icons/ChevronRight';
 import Grid from 'material-ui/Grid';
+import { Route, Switch } from 'react-router-dom'
+
 
 import axios, {httpAgent, httpsAgent, http, Agent} from 'axios';
 
@@ -23,7 +25,6 @@ import Sidebar from './Sidebar';
 import { Content } from './Content';
 
 import * as api from '../api/api';
-import { constants } from 'zlib';
 
 
 const drawerWidth = 240;
@@ -124,7 +125,7 @@ class DashboardApp extends Component {
     this.state = {
       open: false,
       allapps : [],
-      platform: 'Android',
+      platform: 'iOS',
       currentAppId: 0,
       VERSION_ID: '',
       CRASH_REASON_ID: '',
@@ -132,14 +133,26 @@ class DashboardApp extends Component {
     }
     this.changePlatform = this.changePlatform.bind(this)
   }
+  getNewApps = (app, newplatform) => {
+    return app.platform === newplatform
+  }
+  doSomething = (newplatform) => {
+    console.log('Did something with ' + newplatform)
+    console.log(this.state.appstoload)
+  }
   changePlatform  = name = (event) => {
-    this.setState({ platform: event.target.value });
+
+    this.setState({ platform: event.target.value })
+  }
+  filterApps =  (obj, filter)  => {
+    
   }
   componentDidMount() {
     // Load All Apps from Hockey
     var self = this
     var promiseObj = api.getAllApp()
     promiseObj.then((data) => {
+      self.setState({allapps: data.apps})
       self.setState({appstoload: data.apps})
      });
   }
@@ -219,9 +232,13 @@ class DashboardApp extends Component {
                       />
             </div>
           </Drawer>
+          
           <main className={classes.content+ ' ' + (this.state.open ? classes.contentAdjusted:'')}>
-            <Content />
+            <Switch>
+              <Route path="/loadapps/:appid" component={Content} />
+            </Switch>
           </main>
+          
         </div>
       </div>
     );

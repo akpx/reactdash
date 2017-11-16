@@ -22,7 +22,7 @@
     "webpack-dev-server": "^2.9.4"
   },
   "scripts": {
-    "dev": "webpack-dev-server",
+    "dev": "webpack-dev-server --history-api-fallback",
     "build": "webpack"
   },
   "dependencies": {

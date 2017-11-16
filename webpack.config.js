@@ -19,6 +19,10 @@ module.exports = {
   },
   devtool: 'inline-source-map',
 
+  devServer : {
+    overlay: true
+  },
+
   plugins: [
     new HtmlWebpackPlugin({
       template: path.join(paths.SRC, 'index.html'),

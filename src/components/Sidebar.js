@@ -61,26 +61,37 @@ class Sidebar extends React.Component {
   componentDidMount() {
     // Load All Apps from Hockey
   }
+  filteredApp = []
+
+  componentWillReceiveProps(nextProps) {
+    console.log(nextProps)
+    this.filteredApp = (!nextProps.platform ||
+      !nextProps.platform.match(/iOS|Android/)) ?
+      nextProps.apps :
+      nextProps.apps.filter(appitem => appitem['platform'] === nextProps.platform) 
+    console.log(this.filteredApp)
+  }
+
 
   render() {
-    const { classes } = this.props
+    const { classes, apps, platform } = this.props
         
     return (
       <div className={classes.root}>
-      <form className={classes.container} autoComplete="off">
-        <FormControl className={classes.formControl}>
-            <InputLabel htmlFor="platformselect">Platform</InputLabel>
-            <Select
-            value={this.props.platform}
-            onChange={this.props.changePlatform}
-            input={<Input id="platformselect" />}
-            >
-            <MenuItem value={"iOS"}>iOS</MenuItem>
-            <MenuItem value={'Android'}><Android /></MenuItem>
-            </Select>
-        </FormControl>
-    </form>
-     <AppList apps={this.props.apps} />
+        <form className={classes.container} autoComplete="off">
+          <FormControl className={classes.formControl}>
+              <InputLabel htmlFor="platformselect">Platform</InputLabel>
+              <Select
+              value={this.props.platform}
+              onChange={this.props.changePlatform}
+              input={<Input id="platformselect" />}
+              >
+              <MenuItem value={"iOS"}>iOS</MenuItem>
+              <MenuItem value={'Android'}><Android /></MenuItem>
+              </Select>
+          </FormControl>
+      </form>
+      <AppList apps={this.filteredApp} />
     </div>
     );
   }
