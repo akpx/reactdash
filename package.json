@@ -5,6 +5,9 @@
     "type": "git",
     "url": "https://github.com/akpx/reactdash.git"
   },
+  "engines": {
+    "node": "8.9.4"
+  },
   "author": "akpx (https://github.com/akpx)",
   "license": "MIT",
   "devDependencies": {
