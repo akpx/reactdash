@@ -23,7 +23,9 @@
   },
   "scripts": {
     "dev": "webpack-dev-server",
-    "build": "webpack"
+    "build": "webpack",
+    "heroku-postbuild": "webpack -p --config ./webpack.config.js --progress"
+
   },
   "dependencies": {
     "material-design-icons": "^3.0.1",
